@@ -1,0 +1,195 @@
+//C Linked List 1: Create and display a Singly Linked List [C Programming]
+
+//Create and display a Singly Linked List
+
+//Test Data:
+// Input the number of nodes: 3
+// Input the data for node 1 : 5
+// Input the data for node 2 : 6
+// Input the data for node 3 : 7
+
+// Expected Output :
+// Data entered in the list :
+
+// Data=5
+// Data=6
+// Data=7
+
+// solution
+
+//steps
+//1-define a structure for the node
+//2-Define the elements for the structure:
+// - data variable
+// - pointer to the next node
+//3-Declare a pointer for the starting node
+//4-Declare a function prototype for creating a node list
+//5-Create the definition of the declared function
+//6-declare a pointer for creating new nodes
+//7- Declare a variable for temporarily holding nodes.
+//8- Declare a variable that will hold user input.
+//9- Declare a variable for counting nodes.
+//10-Allocate memory for starting node.
+//11- Check if memory was successfully allocated ,If it FAILED, exit the program.
+//12-if memory allocation was successful , ask user to input for first node,
+//13- Copy the user input to the data element of the node.
+//14-Initialize the node's nextPtr element to NULL
+//15-Point the buffer to the first address of the node.
+//16-use loop to fill the rest of the nodes
+//17-allocate memory for a new node
+//18-Check if memory was successfully allocated to the new node, If nok successful, exit theprogram.
+//19-if Memory was successfully allocated, request user input for the node
+//20- assing user input to the node's data element and initialize node's nextPtr to NULL
+//21- link the earlier node to the new node
+//22-point the buffer pointer to the address of the current node
+//23-declare function prototype for displaying the data of all the nodes
+//24-define function for displaying all the nodes
+//25-declare a temporary pointer to a node
+//26-Point the temporary node pointer to the first node of the List of nodes,
+//27-check if the list is not empty
+//28-if list is not empty loop through all the nodes until it reaches the end
+//29-print the data of the current node
+//30-go to the next node
+//31-in the main program declare a variable to hold the maximum number of nodes to create
+//32-ask the user input for total number of nodes to input
+//33- create a list of nodes
+//34-display the list of nodes
+//35-done
+#include<stdio.h>
+#include<stdlib.h>
+#define _CRT_SECURE_NO_WARNINGS
+
+
+
+struct node {
+
+    int data;          //data of the node
+    struct node* nextPtr;  //address of the next node
+};
+
+struct node *startNode;
+
+//Function to create the list
+
+static void createNodeList(int totalNodes);
+
+//Function to display the list
+
+static void displayList();
+
+int main() {
+
+    int numberOfNodes;
+
+    printf("input the number of nodes: ");
+    scanf("%d", &numberOfNodes);
+
+    createNodeList(numberOfNodes);
+
+    printf("\n data entered in the list: \n");
+    displayList();
+
+
+    return 0;
+}
+
+static void createNodeList(int totalNodes) {
+
+
+    struct node* newNode;
+    struct node* nodeBuffer;
+    int nodeData;
+    int nodeCounter;
+
+    //Allocating memory for starting node.
+    startNode = (struct node*)malloc(sizeof(struct node));
+
+
+    //Exit if no memory has been allocated 
+
+    if (startNode == NULL) {
+
+        printf("memory can not be allocated");
+    }
+
+    else {
+        printf("input data for node 1: ");
+        scanf("%d", &nodeData);
+    }
+
+
+
+    //save user input to the data element of the node
+
+    startNode->data = nodeData;
+
+    //inititalize the pointer to the next node to NULL
+
+    startNode->nextPtr = NULL;
+
+
+    nodeBuffer = startNode;
+
+    //use a loop to generate the succeeding nodes
+
+    for (nodeCounter = 2; nodeCounter <= totalNodes; nodeCounter++) {
+
+
+        newNode = (struct node*)malloc(sizeof(struct node));
+
+
+        //Exit if new node cannot be allocated  
+
+        if (newNode == NULL) {
+
+            printf("memory cannot be allocated");
+            break;
+        }
+
+        else {
+            printf("input data for node %d : ", nodeCounter);
+            scanf("%d", &nodeData);
+
+            newNode->data = nodeData;
+            newNode->nextPtr = NULL;
+
+
+            //links the previous node to the current node
+            nodeBuffer->nextPtr = newNode;
+            //copies the address of the current node
+            nodeBuffer = nodeBuffer->nextPtr;
+        }
+    }
+}
+
+static void displayList() {
+
+    struct node* nodeBuffer;
+    nodeBuffer = startNode;
+
+
+    // Exit if list is empty
+    if (nodeBuffer == NULL)
+    {
+        printf("List is empty.");
+    }
+    else
+    {
+
+
+        //check if the current node is empty 
+
+        while (nodeBuffer != NULL)
+        {
+
+            // Print the data of the current node
+            printf("Data = %d\n", nodeBuffer->data);
+
+            // Go to the next node
+            nodeBuffer = nodeBuffer->nextPtr;
+        }
+
+
+    }
+
+}
